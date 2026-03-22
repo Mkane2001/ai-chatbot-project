@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect, url_for
 from chatbot import Chatbot
 
 app = Flask(__name__)
@@ -22,12 +22,16 @@ def index():
             messages.append({"role": "bot", "text": bot_reply})
             session["messages"] = messages
 
+        return redirect(url_for("index"))
+
     return render_template("index.html", messages=session["messages"])
+
 
 @app.route("/clear", methods=["POST"])
 def clear():
     session["messages"] = []
-    return render_template("index.html", messages=[])
+    return redirect(url_for("index"))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
