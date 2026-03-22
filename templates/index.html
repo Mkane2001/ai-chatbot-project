@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <h1>Give me a try ^_~</h1>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <div class="container">
+        <h1>AI Career Assistant</h1>
+
+        <div class="chat-box">
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="message {{ msg.role }}">
+                        <strong>{{ msg.role.capitalize() }}:</strong> {{ msg.text }}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="empty">Start a conversation.</p>
+            {% endif %}
+        </div>
+
+        <form method="POST" class="input-form">
+            <input type="text" name="message" placeholder="Ask about internships, coding, or AI..." required />
+            <button type="submit">Send</button>
+        </form>
+
+        <form method="POST" action="/clear" class="clear-form">
+            <button type="submit" class="clear-btn">Clear Chat</button>
+        </form>
+    </div>
+</body>
+</html>
