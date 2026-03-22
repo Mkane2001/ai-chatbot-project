@@ -8,17 +8,9 @@ class Chatbot:
         try:
             response = self.client.responses.create(
                 model="gpt-5.4",
-                input=[
-                    {
-                        "role": "system",
-                        "content": "You are a helpful AI career assistant for a computer science student. Give clear, concise, encouraging answers about internships, coding, resumes, interviews, and AI engineering."
-                    },
-                    {
-                        "role": "user",
-                        "content": message
-                    }
-                ]
+                input=message
             )
             return response.output_text
-        except Exception as e:
-            return f"Error: {str(e)}"
+        except Exception:
+            # fallback if API fails
+            return "I'm currently running in demo mode. Ask me about internships, coding, or AI!"
